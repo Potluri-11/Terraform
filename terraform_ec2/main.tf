@@ -1,8 +1,16 @@
-resource "aws_instance" "web" {
-  ami           = var.ami_id
-  instance_type = var.instance_type
-  key_name = var.key_name
-  tags = {
-    Name = var.instance_name
+resource "google_compute_instance" "web" {
+  name         = var.instance_name
+  machine_type = var.machine_type
+  zone         = var.zone
+
+  boot_disk {
+    initialize_params {
+      image = var.image
+    }
+  }
+
+  network_interface {
+    network = "default"
+    access_config {}
   }
 }
